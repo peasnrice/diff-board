@@ -1,4 +1,7 @@
 // app/routes.js
+var request      = require('request');
+var slackCreds = require('./../config/slack.js');
+
 module.exports = function(app, passport) {
 
     // =====================================
@@ -60,6 +63,24 @@ module.exports = function(app, passport) {
         req.logout();
         res.redirect('/');
     });
+    
+    app.get('/slack', function(req, res) {
+        var url = 'https://slack.com/api/channels.list'
+        var propertiesObject = { token: slackCreds.diff_token };
+        
+        request({url:url, qs:propertiesObject}, function(err, response, body) {
+          if(err) { console.log(err); return; }
+          console.log("Get response: " + response.statusCode);
+          console.log(JSON.parse(body));
+          res.status(200).send({ channels: JSON.parse(body) });
+        });
+    });
+    
+    app.post('/slack', function(req, res) {
+        // render the page and pass in any flash data if it exists
+        console.log("that's a good post request bro");
+        res.status(200).send({ message: "awesome post request" });
+    })
 };
 
 // route middleware to make sure a user is logged in

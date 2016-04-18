@@ -6,4 +6,4 @@
 \____ | |__||__|   |__|             |___  /\____(____  /__|  \____ | 
      \/                                 \/           \/           \/ 
 
-Display statistics in a <ugly> ~~<cool>~~ ~~<nice>~~ ~~<beautiful>~~ way
+Display statistics in a ugly ~~cool~~ ~~nice~~ ~~beautiful~~ way
