@@ -1,6 +1,6 @@
 // app/routes.js
 var request      = require('request');
-var slackCreds = require('./../config/slack.js');
+var slackCreds = require('../../config/slack.js');
 
 module.exports = function(app, passport) {
 
@@ -68,10 +68,16 @@ module.exports = function(app, passport) {
         var url = 'https://slack.com/api/channels.list'
         var propertiesObject = { token: slackCreds.diff_token };
         
+        
         request({url:url, qs:propertiesObject}, function(err, response, body) {
           if(err) { console.log(err); return; }
           console.log("Get response: " + response.statusCode);
-          console.log(JSON.parse(body));
+          var channel_data = JSON.parse(body).channels;
+          
+            for(var channel in channel_data){
+                console.log(channel+": "+channel_data[channel].name);
+            }
+          
           res.status(200).send({ channels: JSON.parse(body) });
         });
     });
